@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>spymovil</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="css/jquery.mobile.theme-1.4.2.min.css"/>
+    <link rel="stylesheet" href="css/jquery.mobile.icons-1.4.2.min.css"/>
+    <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.2.min.css"/>
+    <link rel="stylesheet" href="css/toastr.min.css"/>
+    <link rel="stylesheet" href="css/my.css"/>
+    
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script src="js/pre-jqm.js"></script>
+    <script src="js/jquery.mobile-1.4.2.min.js"></script>
+    <script src="js/toastr.min.js"></script>
+    <script src="js/jquery.soap.js"></script>
+    <script src="js/index.js"></script>
+    
+  </head>
+  
+  <body>
+  	<!--INGRESAR-->
+    <div data-role="page" id="ingresar" data-title="ingresar" style="background-repeat:repeat repeat;">
+      <div data-role="header" data-fullscreen="false" data-position="" data-tap-toggle="true" data-track-persistent-toolbars="true">
+        <h1>Ingresar</h1>
+      </div>
+      <div role="main" class="ui-content">
+        <!--div style="text-align:left;font-size:medium;font-weight:normal;font-style:normal;margin:0px;padding:0px;">Usuario</div-->
+        <label for="txtUser">Usuario</label>
+        <input type="text" name="txtUser" id="txtUser" value="" data-mini="false" data-corners="true" data-clear-btn="true" style="text-align:center;"/>
+        <!--div style="text-align:left;font-size:medium;font-weight:normal;font-style:normal;margin:0px;padding:0px;">Contraseña</div-->
+        <label for="txtPass">Contraseña</label>
+        <input type="password" name="txtPass" id="txtPass" value="" data-mini="false" data-corners="true" data-clear-btn="true" style="text-align:center;"/>
+        <fieldset>
+          <div data-role="fieldcontain">
+            <label for="swcRecordar" style="width: auto; display: inline-block;">Mantener sesión iniciada</label>
+            <select id="swcRecordar" name="swcRecordar" data-role="flipswitch">
+              <option value="No">No</option>
+              <option value="Si">Si</option>
+            </select>
+          </div>
+        </fieldset>       
+        <a data-role="button" id="btnIngresar" data-theme="b" data-corners="true" data-shadow="false" data-icon="" data-iconpos="left" data-transition="flow" href="">Ingresar</a>
+        <div>
+          <a href="" id="btnAyuda">Ayuda</a>
+        </div>
+      </div>
+    </div>
+    <!--INGRESAR-->
+
+    <!--APLICACION-->
+    <div data-role="page" id="aplicacion" data-title="aplicacion" style="background-repeat:repeat repeat;">
+      <div data-role="header" data-fullscreen="false" data-position="" data-tap-toggle="true" data-track-persistent-toolbars="true">
+        <h1>Aplicación</h1>
+      </div>
+      <div role="main" class="ui-content">
+        <img src="img/logoNegro.png" class="logo">
+        <div class="ui-field-contain">
+          <label for="txtAplicacion">Aplicación</label>
+          <select name="txtAplicacion" id="txtAplicacion">
+            <option value="1">Pozos</option>
+            <option value="2">Tanques</option>
+            <option value="3">Presiones y Caudales</option>
+          </select>
+        </div>
+        <div class="ui-field-contain">
+          <label for="txtServicio">Servicio</label>
+          <select name="txtServicio" id="txtServicio">
+            <option value="1">Rivera</option>
+            <option value="2">Montevideo</option>
+          </select>
+        </div>
+        <a data-role="button" id="btnConfirmar" data-theme="b" data-corners="true" data-shadow="false" data-icon="" data-iconpos="left" data-transition="flow" href="">Confirmar</a>
+      </div>
+    </div>
+    <!--APLICACION-->
+
+    <!--EQUIPOS MAPA api key  AIzaSyB-QRJQh8TwH2p18wV1_2pGopQ2h__r29A-->
+    <div data-role="page" id="mapa" data-title="equipos" style="background-repeat:repeat repeat;">
+      <div data-role="header" data-position="fixed" data-tap-toggle="true" data-track-persistent-toolbars="true">
+        <h1>Mapa de Equipos</h1>
+        <a href="#" id="actualizar" data-icon="refresh" class="ui-btn-left" data-iconpos="notext"></a>
+        <div data-role="navbar" data-iconpos="left">
+          <input data-type="search" id="txtBuscar">
+          <ul>
+            <li><a href="#mapa" data-icon="location" class="ui-btn-active">Mapa</a></li>
+            <li><a href="#lista" data-icon="bullets">Lista</a></li>
+          </ul>
+        </div>
+      </div>
+      <div id="map" class="fullscreen"></div>
+      <script>
+        var map;
+        function initMap() {
+          map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: -34.397, lng: 150.644},
+            zoom: 13
+          });
+        }
+      </script>
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-QRJQh8TwH2p18wV1_2pGopQ2h__r29A&callback=initMap"
+    async defer></script>
+      <ul data-role="listview" id="lista" data-inset="true"></ul>
+    </div>
+    <!--EQUIPOS MAPA-->
+
+    <!--EQUIPOS LISTA-->
+    <div data-role="page" id="lista" data-title="equipos" style="background-repeat:repeat repeat;">
+      <div data-role="header" data-position="fixed" data-tap-toggle="true" data-track-persistent-toolbars="true">
+        <h1>Lista de Equipos</h1>
+        <a href="#" id="actualizar" data-icon="refresh" class="ui-btn-left" data-iconpos="notext"></a>
+        <div data-role="navbar" data-iconpos="left">
+          <input data-type="search" id="txtBuscar">
+          <ul>
+            <li><a href="#mapa" data-icon="location">Mapa</a></li>
+            <li><a href="#lista" data-icon="bullets" class="ui-btn-active">Lista</a></li>
+          </ul>
+        </div>
+      </div>
+      <ul data-role="listview" id="lista" data-inset="true"></ul>
+      <div data-role="collapsibleset">
+        <div data-role="collapsible" data-mini="true" data-collapsed="false">
+          <h3>Pozo 1</h3> 
+          <img style="width:100%;" src="http://ezoui.com/images/image.png" is="image">
+        </div>
+        <div data-role="collapsible" data-mini="true" data-collapsed="true">
+          <h3>Pozo 2</h3> 
+        </div>
+        <div data-role="collapsible" data-mini="true" data-collapsed="true">
+          <h3>Pozo 3</h3> 
+        </div>
+        <div data-role="collapsible" data-mini="true" data-collapsed="true">
+          <h3>Pozo 4</h3> 
+        </div>
+        <div data-role="collapsible" data-mini="true" data-collapsed="true">
+          <h3>Pozo 5</h3> 
+        </div>
+      </div>
+    </div>
+    <!--EQUIPOS LISTA-->
+
+    <!--PERFIL-->
+    <div data-role="page" id="pPerfil" data-title="perfil" style="background-repeat:repeat repeat;">
+      <div data-role="header" data-fullscreen="false" data-position="fixed" data-tap-toggle="true" data-track-persistent-toolbars="true">
+        <h1>Perfil</h1>
+      </div>
+      <div role="main" class="ui-content">
+        <div style="background-repeat:repeat repeat;text-align:center;overflow:hidden;float:initial">
+          <a href="">
+            <img id="imgAvatar" src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQiU_M1dC8me5v2NgC8WRae_L2g0WYAk_2MOkBfkkf_OaNcu-HTaMvcrg8" style="width:25%;text-align:center;margin:0px;padding:0px;"/>
+          </a>
+        </div>
+        <div id="lblNombre" style="text-align:center;font-size:medium;font-weight:normal;font-style:normal;margin:0px;padding:0px;"></div>
+         <fieldset>
+		  <div data-role="fieldcontain">
+			<label for="swcModo">Modo dinámico</label>
+			<select id="swcModo" data-role="flipswitch">
+			  <option value="No">No</option>
+			  <option value="Si">Si</option>
+			</select>
+		  </div>
+		</fieldset>
+          <a data-role="button" id="btnGuardar" data-corners="true" data-inline="false" data-mini="false" data-shadow="false" data-icon="" data-iconpos="left" data-transition="none" href="">Guardar cambios</a>
+          <a data-role="button" id="btnSalir" data-theme="b" data-corners="true" data-inline="false" data-mini="true" data-shadow="false" data-icon="" data-iconpos="left" data-transition="none" href="">Salir</a>
+      </div>
+      <div data-role="footer" data-position="fixed" data-tap-toggle="true" data-track-persistent-toolbars="true">
+        <div data-role="navbar" data-iconpos="top">
+          <ul>
+            <li id="btnAgenda">
+              <a data-transition="flip" href="#pAgenda" data-icon="calendar">Agenda</a>
+            </li>
+            <li id="btnHoy">
+              <a data-transition="flip" href="#pHoy" data-icon="location">Hoy</a>
+            </li>
+            <li id="btnMensajes">
+              <a data-transition="flip" href="#pMensajes" data-icon="comment">Mensajes</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!--PERFIL-->
+
+    <!--AGENDA-->
+    <div data-role="page" id="pAgenda" data-title="agenda" style="background-repeat:repeat repeat;">
+      <div data-role="header" data-fullscreen="false" data-position="fixed" data-tap-toggle="true" data-track-persistent-toolbars="true">
+        <h1>Agenda</h1>
+        <a href="#pPerfil" data-icon="user" class="ui-btn-right" data-iconpos="left">Perfil</a>
+      </div>
+      <div role="main" class="ui-content">
+      	<label for="txtMes">Agenda del mes de</label>
+      	<input type="month" data-clear-btn="false" id="txtMes" value="">
+        <a data-role="button" id="btnGetAgenda" data-theme="b" data-corners="true" data-inline="false" data-mini="true" data-shadow="false" data-icon="" data-iconpos="left" data-transition="none" href="">Obtener agenda</a>
+      </div>
+      <ul data-role="listview" id="lstAgenda" data-inset="true"></ul>
+      <div data-role="footer" data-position="fixed" data-tap-toggle="true" data-track-persistent-toolbars="true">
+        <div data-role="navbar" data-iconpos="top">
+          <ul>
+            <li id="btnAgenda">
+              <a data-transition="flip" href="#pAgenda" data-icon="calendar">Agenda</a>
+            </li>
+            <li id="btnHoy">
+              <a data-transition="flip" href="#pHoy" data-icon="location">Hoy</a>
+            </li>
+            <li id="btnMensajes">
+              <a data-transition="flip" href="#pMensajes" data-icon="comment">Mensajes</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!--AGENDA-->
+
+    <!--MARCAS-->
+  <div data-role="page" id="pMarcas" data-title="marcas" style="background-repeat:repeat repeat;">
+      <div data-role="header" data-fullscreen="false" data-position="fixed" data-tap-toggle="true" data-track-persistent-toolbars="true">
+        <h1>Turno X</h1>
+        <a href="#pPerfil" data-icon="user" class="ui-btn-right" data-iconpos="left">Perfil</a>
+      </div>
+      <div role="main" class="ui-content">
+        <div id="lstTurnoMarcas" data-role="collapsibleset" data-content-theme="a" style="text-align:center;overflow:hidden"></div>
+      </div>
+      <ul data-role="listview" id="lstAgenda" data-inset="true"></ul>
+      <div data-role="footer" data-position="fixed" data-tap-toggle="true" data-track-persistent-toolbars="true">
+        <div data-role="navbar" data-iconpos="top">
+          <ul>
+            <li id="btnAgenda">
+              <a data-transition="flip" href="#pAgenda" data-icon="calendar">Agenda</a>
+            </li>
+            <li id="btnHoy">
+              <a data-transition="flip" href="#pHoy" data-icon="location">Hoy</a>
+            </li>
+            <li id="btnMensajes">
+              <a data-transition="flip" href="#pMensajes" data-icon="comment">Mensajes</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!--MARCAS-->
+    
+    <!--MENSAJES-->
+    <div data-role="page" id="pMensajes" data-title="mensajes" style="background-repeat:repeat repeat;">
+      <div data-role="header" data-fullscreen="false" data-position="fixed" data-tap-toggle="true" data-track-persistent-toolbars="true">
+        <h1>Mensajes</h1>
+        <a href="#" id="rfsMensajes" data-icon="refresh" class="ui-btn-left" data-iconpos="notext">Refrescar</a>
+        <a href="#pPerfil" data-icon="user" class="ui-btn-right" data-iconpos="left">Perfil</a>
+      </div>
+      <div role="main" class="ui-content">
+		<select id="lstCanales" data-native-menu="true"></select>
+    <div data-role="popup" id="popCanales" data-theme="b">
+			<ul data-role="listview" data-inset="true" style="min-width:210px;width:100%;"></ul>
+		</div>
+		<label id="lblMensajes"></label>
+    	<textarea id="txtMensajes" data-enhanced="true" data-role="none" readonly="true" class="ui-input-text ui-body-inherit ui-corner-all" style="resize:none;overflow-x:visible;overflow-y:scroll;"></textarea>
+		<input type="text" id="txtMensaje" data-position="fixed" placeholder="Nuevo mensaje" value="">
+     	<a data-role="button" id="btnSndMensaje" data-theme="b" data-corners="true" data-inline="false" data-mini="true" data-shadow="false" data-icon="" data-iconpos="left" data-transition="none" data-position="fixed" href="">Enviar</a>
+      </div>
+      <div data-role="footer" data-position="fixed" data-tap-toggle="true" data-track-persistent-toolbars="true">
+        <div data-role="navbar" data-iconpos="top">
+          <ul>
+            <li id="btnAgenda">
+              <a data-transition="flip" href="#pAgenda" data-icon="calendar">Agenda</a>
+            </li>
+            <li id="btnHoy">
+              <a data-transition="flip" href="#pHoy" data-icon="location">Hoy</a>
+            </li>
+            <li id="btnMensajes">
+              <a data-transition="flip" href="#pMensajes" data-icon="comment">Mensajes</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!--MENSAJES-->
+  
+  </body>
+</html>

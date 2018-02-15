@@ -1,0 +1,20 @@
+[role=main], [role=collapsible] {
+	margin:10px;
+	padding:1em;"
+}
+.logo {
+	max-width: 300px
+	margin: auto;
+}
+* {
+	font-family: 'Ubuntu', sans-serif !important;
+}
+.fullscreen {
+	bottom: 0px;
+	position: absolute;
+	top: 134.15px;
+}
+.ui-input-search {
+	margin-left: 10px !important;
+	margin-right: 10px !important;
+}
