@@ -1,11 +1,11 @@
 {
   "background_color": "#FFF",
   "display": "standalone",
-  "name": "HelloCordova",
-  "short_name": "HelloCordova",
+  "name": "SpyApp",
+  "short_name": "SpyApp",
   "version": "io.cordova.hellocordova",
-  "description": "A sample Apache Cordova application that responds to the deviceready event.",
-  "author": "Apache Cordova Team",
+  "description": "Aplicación multiplataforma para monitorear en tiempo real equipos de SPYMOVIL.",
+  "author": "Fabricio Benitez",
   "icons": [],
   "start_url": "index.html"
 }
